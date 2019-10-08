@@ -1,0 +1,4 @@
+load STM32F429ZITx 
+project name STCubeGenerated 
+project toolchain "MDK-ARM V5" 
+project path "C:\Users\David\Documents\GitHub\filter_settings\RTE\Device\STM32F429ZITx\" 
