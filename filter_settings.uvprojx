@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>.\RTE\Device\STM32F429ZITx\STCubeGenerated\Src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -381,6 +381,38 @@
       <Groups>
         <Group>
           <GroupName>Source Group 1</GroupName>
+          <Files>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32F429ZITx\STCubeGenerated\Src\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32F429ZITx\STCubeGenerated\Src\dac.c</FilePath>
+            </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32F429ZITx\STCubeGenerated\Src\dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32F429ZITx\STCubeGenerated\Src\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32F429ZITx\STCubeGenerated\Src\tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>fir.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32F429ZITx\STCubeGenerated\Src\fir.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>:STM32CubeMX:Common Sources</GroupName>

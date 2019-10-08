@@ -1,4 +1,10 @@
 --cpu=Cortex-M4.fp
+".\objects\adc.o"
+".\objects\dac.o"
+".\objects\dma.o"
+".\objects\gpio.o"
+".\objects\tim.o"
+".\objects\fir.o"
 ".\objects\main.o"
 ".\objects\stm32f4xx_it.o"
 "C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib"
