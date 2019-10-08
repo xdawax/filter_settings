@@ -1,5 +1,9 @@
 #include "fir.h"
 
+#define TAPS					101												// The number of taps in the FIR filter
+
+arm_fir_instance_f32 fir_lp;
+
 // Coefficients generated in MatLab
 const float32_t firCoeffs_LP_5kHz[TAPS] = { -0.000309531785296974, -0.000168667396354186, 3.39020149475193e-19,	0.000191580488973905, 0.000397225781615615,	0.000601942766960649,
 																						 0.000783465527039160,	0.000912825475234056,	0.000956983042844503,	0.000883496893850959,	0.000666768612907606,	0.000294986928352886,	
@@ -18,3 +22,15 @@ const float32_t firCoeffs_LP_5kHz[TAPS] = { -0.000309531785296974, -0.0001686673
 																						0.000883496893850959,	0.000956983042844503,	0.000912825475234056,	0.000783465527039160,	0.000601942766960649,	0.000397225781615615,	0.000191580488973905,
 																						3.39020149475193e-19,	-0.000168667396354186,	-0.000309531785296974
 																					};
+
+volatile float32_t fir_lp_state[TAPS + BLOCK_SIZE - 1];
+
+void fir_init() {
+	arm_fir_init_f32(&fir_lp, TAPS, (float32_t *)&firCoeffs_LP_5kHz[0], (float32_t *)&fir_lp_state[0], BLOCK_SIZE); 
+}
+																					
+void fir_lp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength) {
+	
+}
+
+

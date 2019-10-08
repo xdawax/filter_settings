@@ -7,7 +7,7 @@
 #define DATA_SIZE		 	BUFFER_SIZE / 2						// Half buffer size that user can access
 #define BLOCK_SIZE		32												// The size of each block to be filtered
 
-/// \brief Initializes the FIR filter, setting the number of taps, coefficients, state array and blocksize
+/// \brief Initializes the FIR filters, LP (to add HP, BP, NOTCH)
 /// 
 /// \param void
 ///
@@ -21,7 +21,7 @@ void fir_init(void);
 /// \param[in] signalLength is the number of samples to be filtered
 ///
 /// \returns void
-void fir_lp(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength);
+void fir_lp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength);
 
 
 
