@@ -1,7 +1,6 @@
 #include "fir.h"
 
 #define TAPS					101												// The number of taps in the FIR filter
-
 arm_fir_instance_f32 fir_lp;
 
 // Coefficients generated in MatLab
@@ -30,7 +29,12 @@ void fir_init() {
 }
 																					
 void fir_lp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength) {
+	int i = 0;
+	uint32_t numBlocks = signalLength / BLOCK_SIZE;
 	
+	for (i = 0; i < numBlocks; i++) {
+		arm_fir_f32(&fir_lp, &unfilteredSignal[i * BLOCK_SIZE], &filteredSignal[i * BLOCK_SIZE], BLOCK_SIZE);
+	}
 }
 
 
