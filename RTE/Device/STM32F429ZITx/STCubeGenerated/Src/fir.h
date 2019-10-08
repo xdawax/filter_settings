@@ -6,7 +6,22 @@
 #define BUFFER_SIZE 	256												// Full buffer size
 #define DATA_SIZE		 	BUFFER_SIZE / 2						// Half buffer size that user can access
 #define BLOCK_SIZE		32												// The size of each block to be filtered
-#define TAPS					101												// The number of taps in the FIR filter
+
+/// \brief Initializes the FIR filter, setting the number of taps, coefficients, state array and blocksize
+/// 
+/// \param void
+///
+/// \returns void
+void fir_init(void);		
+
+/// \brief
+/// 
+/// \param[in] *unfilteredSignal is a pointer to the beginning of the noisy signal to be filtered
+/// \param[out] *filteredSignal is a pointer to the beginning of the filtered signal
+/// \param[in] signalLength is the number of samples to be filtered
+///
+/// \returns void
+void fir_lp(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength);
 
 
 
