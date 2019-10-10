@@ -45,13 +45,14 @@ const float32_t firCoeffs_NOTCH_2600Hz[TAPS] = { 0.00037745,0.00029282,0.0002014
 																					
 volatile float32_t fir_lp_state[TAPS + BLOCK_SIZE - 1];
 volatile float32_t fir_hp_state[TAPS + BLOCK_SIZE - 1];
-
+volatile float32_t fir_notch_state[TAPS + BLOCK_SIZE - 1];
 
 void fir_filter_signal(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength, arm_fir_instance_f32 filter);
 
 void fir_init(void) {
 	arm_fir_init_f32(&fir_lp, TAPS, (float32_t *)&firCoeffs_LP_5kHz[0], (float32_t *)&fir_lp_state[0], BLOCK_SIZE); 
 	arm_fir_init_f32(&fir_hp, TAPS, (float32_t *)&firCoeffs_HP_5kHz[0], (float32_t *)&fir_hp_state[0], BLOCK_SIZE);
+	arm_fir_init_f32(&fir_notch, TAPS, (float32_t *)&firCoeffs_NOTCH_2600Hz[0], (float32_t *)&fir_notch_state[0], BLOCK_SIZE);
 }
 			
 
