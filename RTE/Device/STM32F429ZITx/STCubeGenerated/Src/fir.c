@@ -64,6 +64,10 @@ void fir_hp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint3
 	fir_filter_signal(unfilteredSignal, filteredSignal, signalLength, fir_hp);
 }
 
+void fir_notch_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength) {
+	fir_filter_signal(unfilteredSignal, filteredSignal, signalLength, fir_notch);
+}
+
 void fir_filter_signal(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength, arm_fir_instance_f32 filter) {
 	int i = 0;
 	uint32_t numBlocks = signalLength / BLOCK_SIZE;
