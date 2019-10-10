@@ -43,23 +43,11 @@ const float32_t firCoeffs_NOTCH_2600Hz[TAPS] = { 0.00037745,0.00029282,0.0002014
 																							 };
 																				
 																					
-const float32_t firCoeffs_small[41] = { 0.00032819,-9.3479e-05,-0.00069092,-0.0016001,-0.0028801,-0.0044509,-0.0060529,-0.0072428,-0.0074319,-0.0059658
-	,-0.0022344,0.0042052,0.013516,0.025497,0.039557,0.054743,0.069827,0.083457,0.09432,0.10132,0.10374,0.10132,0.09432,0.083457,0.069827,0.054743,0.039557
-,0.025497,0.013516,0.0042052,-0.0022344,-0.0059658,-0.0074319,-0.0072428,-0.0060529,-0.0044509,-0.0028801,-0.0016001,-0.00069092,-9.3479e-05,0.00032819 };
-
-
-volatile float32_t fir_small[41 + BLOCK_SIZE - 1];
 volatile float32_t fir_lp_state[TAPS + BLOCK_SIZE - 1];
 volatile float32_t fir_hp_state[TAPS + BLOCK_SIZE - 1];
 
+
 void fir_filter_signal(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength, arm_fir_instance_f32 filter);
-
-
-
-void fir_init_small(void) {
-	arm_fir_init_f32(&fir_lp, 41, (float32_t *)&firCoeffs_small[0], (float32_t *)&fir_lp_state[0], BLOCK_SIZE);
-}
-
 
 void fir_init(void) {
 	arm_fir_init_f32(&fir_lp, TAPS, (float32_t *)&firCoeffs_LP_5kHz[0], (float32_t *)&fir_lp_state[0], BLOCK_SIZE); 

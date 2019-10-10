@@ -152,7 +152,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	
 	fir_init();
-	//fir_init_small();
+	
 	HAL_TIM_Base_Start(&htim2);
 	HAL_ADC_Start_DMA(&hadc1,(uint32_t *) adcData, BUFFER_SIZE);
 	HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t *) dacData, BUFFER_SIZE, DAC_ALIGN_12B_R);
