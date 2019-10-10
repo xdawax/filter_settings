@@ -2,6 +2,7 @@
 
 #define TAPS					101												// The number of taps in the FIR filter
 arm_fir_instance_f32 fir_lp;
+arm_fir_instance_f32 fir_hp;
 
 // Coefficients generated in MatLab
 const float32_t firCoeffs_LP_5kHz[TAPS] = { -0.000309531785296974, -0.000168667396354186, 3.39020149475193e-19,	0.000191580488973905, 0.000397225781615615,	0.000601942766960649,
@@ -22,18 +23,43 @@ const float32_t firCoeffs_LP_5kHz[TAPS] = { -0.000309531785296974, -0.0001686673
 																						3.39020149475193e-19,	-0.000168667396354186,	-0.000309531785296974
 																					};
 
+const float32_t firCoeffs_small[41] = { 0.00032819,-9.3479e-05,-0.00069092,-0.0016001,-0.0028801,-0.0044509,-0.0060529,-0.0072428,-0.0074319,-0.0059658
+	,-0.0022344,0.0042052,0.013516,0.025497,0.039557,0.054743,0.069827,0.083457,0.09432,0.10132,0.10374,0.10132,0.09432,0.083457,0.069827,0.054743,0.039557
+,0.025497,0.013516,0.0042052,-0.0022344,-0.0059658,-0.0074319,-0.0072428,-0.0060529,-0.0044509,-0.0028801,-0.0016001,-0.00069092,-9.3479e-05,0.00032819 };
+volatile float32_t fir_small[41 + BLOCK_SIZE - 1];
 volatile float32_t fir_lp_state[TAPS + BLOCK_SIZE - 1];
 
-void fir_init() {
-	arm_fir_init_f32(&fir_lp, TAPS, (float32_t *)&firCoeffs_LP_5kHz[0], (float32_t *)&fir_lp_state[0], BLOCK_SIZE); 
+
+void fir_filter_signal(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength, arm_fir_instance_f32 filter);
+
+
+
+void fir_init_small(void) {
+	arm_fir_init_f32(&fir_lp, 41, (float32_t *)&firCoeffs_small[0], (float32_t *)&fir_lp_state[0], BLOCK_SIZE);
 }
-																					
+
+
+void fir_init(void) {
+	arm_fir_init_f32(&fir_lp, TAPS, (float32_t *)&firCoeffs_LP_5kHz[0], (float32_t *)&fir_lp_state[0], BLOCK_SIZE); 
+	
+}
+			
+
 void fir_lp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength) {
+	fir_filter_signal(unfilteredSignal, filteredSignal, signalLength, fir_lp);
+}
+
+void fir_hp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength) {
+	
+}
+
+void fir_filter_signal(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength, arm_fir_instance_f32 filter) {
 	int i = 0;
 	uint32_t numBlocks = signalLength / BLOCK_SIZE;
 	
+	
 	for (i = 0; i < numBlocks; i++) {
-		arm_fir_f32(&fir_lp, &unfilteredSignal[i * BLOCK_SIZE], &filteredSignal[i * BLOCK_SIZE], BLOCK_SIZE);
+		arm_fir_f32(&filter, unfilteredSignal + (i * BLOCK_SIZE), filteredSignal + (i * BLOCK_SIZE), BLOCK_SIZE);
 	}
 }
 
