@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\filter_settings.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\filter_settings.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Oct 10 07:36:24 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Oct 10 07:57:33 2019
 <BR><P>
 <H3>Maximum Stack Usage =        216 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; runnit &rArr; fir_hp_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
+__rt_entry_main &rArr; main &rArr; runnit &rArr; fir_notch_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
 <P>
 <H3>
 Functions with no stack information
@@ -253,7 +253,7 @@ Global Symbols
 
 <P><STRONG><a name="[7f]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; runnit &rArr; fir_hp_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; runnit &rArr; fir_notch_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -626,7 +626,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_init
+<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_init
 </UL>
 
 <P><STRONG><a name="[7]"></a>BusFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.BusFault_Handler))
@@ -1055,18 +1055,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_fir_f32
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_hp_filter
+<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_notch_filter
 </UL>
 
-<P><STRONG><a name="[c5]"></a>fir_hp_filter</STRONG> (Thumb, 34 bytes, Stack size 24 bytes, fir.o(i.fir_hp_filter))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = fir_hp_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_filter_signal
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runnit
-</UL>
-
-<P><STRONG><a name="[c6]"></a>fir_init</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, fir.o(i.fir_init))
+<P><STRONG><a name="[c5]"></a>fir_init</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, fir.o(i.fir_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = fir_init &rArr; arm_fir_init_f32 &rArr; __aeabi_memclr4
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_fir_init_f32
@@ -1074,8 +1066,16 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
+<P><STRONG><a name="[c6]"></a>fir_notch_filter</STRONG> (Thumb, 34 bytes, Stack size 24 bytes, fir.o(i.fir_notch_filter))
+<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = fir_notch_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
+</UL>
+<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_filter_signal
+</UL>
+<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runnit
+</UL>
+
 <P><STRONG><a name="[80]"></a>main</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = main &rArr; runnit &rArr; fir_hp_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = main &rArr; runnit &rArr; fir_notch_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_Base_Start
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK1Freq
@@ -1084,7 +1084,7 @@ Global Symbols
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Start_DMA
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runnit
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_init
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_init
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM2_Init
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_DMA_Init
@@ -1095,9 +1095,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c9]"></a>runnit</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, main.o(i.runnit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = runnit &rArr; fir_hp_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = runnit &rArr; fir_notch_filter &rArr; fir_filter_signal &rArr; arm_fir_f32
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_hp_filter
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fir_notch_filter
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>

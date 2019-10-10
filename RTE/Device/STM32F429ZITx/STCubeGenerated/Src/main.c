@@ -79,7 +79,8 @@ void runnit(void) {
 	}
 		
 	//fir_lp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
-	fir_hp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
+	//fir_hp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
+	fir_notch_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
 	for (i = 0; i < DATA_SIZE; i++) {
 		dacBufferPtr[i] = (uint32_t)dacFloatBuffer[i];
 	}

@@ -33,6 +33,16 @@ void fir_lp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint3
 /// \returns void
 void fir_hp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength);
 
+
+/// \brief Filters a given signal using a notch-filter with 2400-3600Hz stop band (aiming at 3kHz)
+/// 
+/// \param[in] *unfilteredSignal is a pointer to the beginning of the noisy signal to be filtered
+/// \param[out] *filteredSignal is a pointer to the beginning of the filtered signal
+/// \param[in] signalLength is the number of samples to be filtered
+///
+/// \returns void
+void fir_notch_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength);
+
 /* DEBUGG */
 void fir_init_small(void) ;
 
