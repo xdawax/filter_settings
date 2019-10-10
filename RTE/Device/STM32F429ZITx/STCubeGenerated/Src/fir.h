@@ -24,6 +24,15 @@ void fir_init(void);
 void fir_lp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength);
 
 
+/// \brief Filters a given signal using a HP-filter with 5kHz cutoff frequency
+/// 
+/// \param[in] *unfilteredSignal is a pointer to the beginning of the noisy signal to be filtered
+/// \param[out] *filteredSignal is a pointer to the beginning of the filtered signal
+/// \param[in] signalLength is the number of samples to be filtered
+///
+/// \returns void
+void fir_hp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength);
+
 /* DEBUGG */
 void fir_init_small(void) ;
 

@@ -73,21 +73,22 @@ uint32_t *dacBufferPtr;
 void runnit(void) {
 	
 	int i = 0;
-	/*
+	
 	for (i = 0; i < DATA_SIZE; i++) {
 		adcFloatBuffer[i] = (float)adcBufferPtr[i];
 	}
 		
-	fir_lp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
-	
+	//fir_lp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
+	fir_hp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
 	for (i = 0; i < DATA_SIZE; i++) {
 		dacBufferPtr[i] = (uint32_t)dacFloatBuffer[i];
 	}
-	*/
 	
+	/*
 	for (i = 0; i < DATA_SIZE; i++) {
 		dacBufferPtr[i] = adcBufferPtr[i];
 	}
+	*/
 }
 
 /**
@@ -150,8 +151,8 @@ int main(void)
   MX_DAC_Init();
   /* USER CODE BEGIN 2 */
 	
-	//fir_init();
-	fir_init_small();
+	fir_init();
+	//fir_init_small();
 	HAL_TIM_Base_Start(&htim2);
 	HAL_ADC_Start_DMA(&hadc1,(uint32_t *) adcData, BUFFER_SIZE);
 	HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t *) dacData, BUFFER_SIZE, DAC_ALIGN_12B_R);
