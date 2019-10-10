@@ -65,8 +65,12 @@ void fir_init(void) {
 	arm_fir_init_f32(&fir_lp, TAPS, (float32_t *)&firCoeffs_LP_5kHz[0], (float32_t *)&fir_lp_state[0], BLOCK_SIZE); 
 	arm_fir_init_f32(&fir_hp, TAPS, (float32_t *)&firCoeffs_HP_5kHz[0], (float32_t *)&fir_hp_state[0], BLOCK_SIZE);
 	arm_fir_init_f32(&fir_notch, TAPS, (float32_t *)&firCoeffs_NOTCH_3000Hz[0], (float32_t *)&fir_notch_state[0], BLOCK_SIZE);
+	arm_fir_init_f32(&fir_pass, TAPS, (float32_t *)&firCoeffs_PASS_3000Hz[0], (float32_t *)&fir_pass_state[0], BLOCK_SIZE);
 }
 			
+void fir_pass_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength) {
+	fir_filter_signal(unfilteredSignal, filteredSignal, signalLength, fir_pass);
+}
 
 void fir_lp_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength) {
 	fir_filter_signal(unfilteredSignal, filteredSignal, signalLength, fir_lp);
