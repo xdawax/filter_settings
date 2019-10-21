@@ -73,23 +73,24 @@ uint32_t *dacBufferPtr;
 void runnit(void) {
 	
 	int i = 0;
-	
-	for (i = 0; i < DATA_SIZE; i++) {
-		adcFloatBuffer[i] = (float)adcBufferPtr[i];
-	}
-		
-	//fir_lp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
-	//fir_hp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
-	fir_notch_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
-	for (i = 0; i < DATA_SIZE; i++) {
-		dacBufferPtr[i] = (uint32_t)dacFloatBuffer[i];
-	}
-	
 	/*
+	for (i = 0; i < DATA_SIZE; i++) {
+		adcFloatBuffer[i] = ((float)adcBufferPtr[i]) - 2048;
+	}
+	
+	fir_lp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
+	//fir_hp_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
+	//fir_notch_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
+	//fir_pass_filter((float32_t *)adcFloatBuffer, (float32_t *)dacFloatBuffer, DATA_SIZE);
+	for (i = 0; i < DATA_SIZE; i++) {
+		dacBufferPtr[i] = (uint32_t)(dacFloatBuffer[i] + 2048);
+	}
+	*/
+	
 	for (i = 0; i < DATA_SIZE; i++) {
 		dacBufferPtr[i] = adcBufferPtr[i];
 	}
-	*/
+	
 }
 
 /**
@@ -127,6 +128,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
+  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -184,7 +186,7 @@ void SystemClock_Config(void)
   /** Configure the main internal regulator output voltage 
   */
   __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
   /** Initializes the CPU, AHB and APB busses clocks 
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
@@ -193,7 +195,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLN = 72;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -206,10 +208,10 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }

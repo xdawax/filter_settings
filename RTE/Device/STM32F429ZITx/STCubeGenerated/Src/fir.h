@@ -52,8 +52,7 @@ void fir_notch_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, ui
 /// \returns void
 void fir_pass_filter(float32_t *unfilteredSignal, float32_t *filteredSignal, uint32_t signalLength);
 
-/* DEBUGG */
-void fir_init_small(void) ;
+
 
 #endif
 
